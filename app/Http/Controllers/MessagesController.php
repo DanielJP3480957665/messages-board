@@ -11,7 +11,7 @@ class MessagesController extends Controller
     // getでmessages/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-        $messages = Message::all();
+        $messages = Message::paginate(25);
         
         return view ('messages.index',[
             'messages'=>$messages,
@@ -32,10 +32,12 @@ class MessagesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'title' => 'required|max:191',
             'content' => 'required|max:191',
         ]);
         
-        $message = new Massage;
+        $message = new Message;
+        $message->title = $request->title;
         $message->content =$request->content;
         $message->save();
         
@@ -56,7 +58,6 @@ class MessagesController extends Controller
     public function edit($id)
     {
         $message = Message::find($id);
-
         return view('messages.edit', [
             'message' => $message,
         ]);
@@ -66,6 +67,7 @@ class MessagesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
+            'title' => 'required|max:191', 
             'contet' => 'required|max:191',
             ]);
         

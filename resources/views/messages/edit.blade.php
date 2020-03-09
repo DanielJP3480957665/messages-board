@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('content')
 
     
 <!-- ここにページ毎のコンテンツを書く -->
@@ -11,6 +11,14 @@
             {!! Form::model($message, ['route' => ['messages.update', $message->id], 'method' => 'put']) !!}
         
                 <div class="form-group">
+                    
+                    <div class="form-group">
+                    
+                    {!! Form::label('title','タイトル:') !!}
+                    {!! Form::text('title',null,['class' => 'form-control']) !!}
+                    
+                </div>
+                    
                     {!! Form::label('content', 'メッセージ:') !!}
                     {!! Form::text('content', null, ['class' => 'form-control']) !!}
                 </div>
